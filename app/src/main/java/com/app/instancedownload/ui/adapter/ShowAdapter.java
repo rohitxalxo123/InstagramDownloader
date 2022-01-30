@@ -1,4 +1,4 @@
-package com.app.instancedownload.adapter;
+package com.app.instancedownload.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.app.instancedownload.activity.VideoPlayer;
+import com.app.instancedownload.ui.activity.VideoPlayer;
 import com.app.instancedownload.R;
 import com.app.instancedownload.util.TouchImageView;
 

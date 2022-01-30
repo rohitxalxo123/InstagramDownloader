@@ -1,4 +1,4 @@
-package com.app.instancedownload.adapter;
+package com.app.instancedownload.ui.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.app.instancedownload.fragment.ImageFragment;
-import com.app.instancedownload.fragment.VideoFragment;
+import com.app.instancedownload.ui.fragment.ImageFragment;
+import com.app.instancedownload.ui.fragment.VideoFragment;
 
 
 public class ViewPagerAdapter extends FragmentStateAdapter {

@@ -6,7 +6,6 @@
 
     <string name="adMob_app_id">ca-app-pub-3089551119510710~2433971356</string>
     <string name="play_more_app">https://play.google.com/store/apps/</string>
-    <string name="privacy_policy_link">https://your_privacy_policy_link.html</string>
 
     <string name="download_folder_path">/InstanceDownload/</string>
 

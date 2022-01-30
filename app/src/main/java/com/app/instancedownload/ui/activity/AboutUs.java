@@ -1,13 +1,11 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.app.instancedownload.R;
-import com.app.instancedownload.util.Method;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class AboutUs extends AppCompatActivity {

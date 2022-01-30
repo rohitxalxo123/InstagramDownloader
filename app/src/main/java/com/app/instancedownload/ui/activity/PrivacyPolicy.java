@@ -1,4 +1,4 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -7,7 +7,6 @@ import android.webkit.WebView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.app.instancedownload.R;
 import com.app.instancedownload.util.Method;
@@ -18,8 +17,6 @@ import java.io.InputStream;
 
 
 public class PrivacyPolicy extends AppCompatActivity {
-
-    private WebView webView;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -36,7 +33,7 @@ public class PrivacyPolicy extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        webView = findViewById(R.id.webView_privacy_policy);
+        WebView webView = findViewById(R.id.webView_privacy_policy);
 
         String str;
         try {
@@ -57,13 +54,12 @@ public class PrivacyPolicy extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         String mimeType = "text/html";
         String encoding = "utf-8";
-        String htmlText = str;
 
         String text = "<html><head>"
                 + "<style type=\"text/css\">@font-face {font-family: MyFont;src: url(\"file:///android_asset/font/latoregular.ttf\")}body{font-family: MyFont;color: " + method.webViewText() + "}"
                 + "</style></head>"
                 + "<body>"
-                + htmlText
+                + str
                 + "</body></html>";
 
         webView.loadDataWithBaseURL(null, text, mimeType, encoding, null);

@@ -1,4 +1,4 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
 import android.app.WallpaperManager;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.app.instancedownload.R;
-import com.app.instancedownload.adapter.ShowAdapter;
+import com.app.instancedownload.ui.adapter.ShowAdapter;
 import com.app.instancedownload.util.Constant;
 import com.app.instancedownload.util.Events;
 import com.app.instancedownload.util.GlobalBus;
@@ -38,13 +38,12 @@ import java.util.List;
 
 public class Show extends AppCompatActivity {
 
-    private MaterialToolbar toolbar;
-    private ViewPager viewPager;
-    private ShowAdapter showAdapter;
     private String type;
-    private List<File> showArray;
     private Method method;
     private Animation myAnim;
+    private ViewPager viewPager;
+    private List<File> showArray;
+    private ShowAdapter showAdapter;
     private ConstraintLayout conSetAsWallpaper;
     private ImageView imageViewTwo, imageViewSetWallpaper, imageViewDelete, imageViewShare;
 
@@ -66,7 +65,7 @@ public class Show extends AppCompatActivity {
 
         myAnim = AnimationUtils.loadAnimation(Show.this, R.anim.bounce);
 
-        toolbar = findViewById(R.id.toolbar_imageShow);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar_imageShow);
         viewPager = findViewById(R.id.viewpager_imageShow);
         imageViewTwo = findViewById(R.id.imageView_line_two_imageShow);
         conSetAsWallpaper = findViewById(R.id.con_setAsWall_imageShow);

@@ -20,9 +20,9 @@ import com.app.instancedownload.util.GlobalBus;
 public class ActiveService extends Service {
 
     private RemoteViews rv;
-    private int CHANEL_ID = 104;
-    private NotificationManager mNotificationManager;
+    private int CHANNEL_ID = 104;
     private NotificationCompat.Builder builder;
+    private NotificationManager notificationManager;
     private String NOTIFICATION_CHANNEL_ID = "action_service";
     public static final String ACTION_SERVICE_START = "com.action.serviceStart";
     public static final String ACTION_SERVICE_STOP = "com.action.serviceStop";
@@ -37,7 +37,7 @@ public class ActiveService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
         builder.setChannelId(NOTIFICATION_CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_stat_ic_notification);
@@ -58,9 +58,9 @@ public class ActiveService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getResources().getString(R.string.app_name);// The user-visible name of the channel.
             mChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);
-            mNotificationManager.createNotificationChannel(mChannel);
+            notificationManager.createNotificationChannel(mChannel);
         }
-        startForeground(CHANEL_ID, builder.build());
+        startForeground(CHANNEL_ID, builder.build());
 
     }
 

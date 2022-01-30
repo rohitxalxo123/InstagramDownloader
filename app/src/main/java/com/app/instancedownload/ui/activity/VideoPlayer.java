@@ -1,8 +1,7 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,9 +9,9 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.PlaybackException;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -41,9 +40,7 @@ public class VideoPlayer extends AppCompatActivity {
         Method method = new Method(VideoPlayer.this);
 
         // Making notification bar transparent
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         // making notification bar transparent
         method.changeStatusBarColor();
@@ -82,7 +79,7 @@ public class VideoPlayer extends AppCompatActivity {
             }
 
             @Override
-            public void onPlayerError(@NotNull ExoPlaybackException error) {
+            public void onPlayerError(@NotNull PlaybackException error) {
                 Log.d("show_error", error.toString());
                 progressBar.setVisibility(View.GONE);
                 method.alertBox(getResources().getString(R.string.wrong));

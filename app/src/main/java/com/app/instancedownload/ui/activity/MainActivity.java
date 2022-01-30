@@ -1,6 +1,5 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +17,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
@@ -27,7 +24,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.app.instancedownload.R;
-import com.app.instancedownload.adapter.ViewPagerAdapter;
+import com.app.instancedownload.ui.adapter.ViewPagerAdapter;
 import com.app.instancedownload.interfaces.GetData;
 import com.app.instancedownload.interfaces.OnClick;
 import com.app.instancedownload.service.ActiveService;
@@ -39,18 +36,11 @@ import com.app.instancedownload.util.GlobalBus;
 import com.app.instancedownload.util.Method;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.jetbrains.annotations.NotNull;
@@ -58,17 +48,17 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, PermissionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private Method method;
-    private NavigationView navigationView;
     private String[] pageTitle;
     private ViewPager2 viewPager2;
     private TabLayout tabLayout;
     private DrawerLayout drawer;
-    private SwitchMaterial switchMaterial;
     private TextInputEditText editText;
+    private SwitchMaterial switchMaterial;
     private ViewPagerAdapter pagerAdapter;
+    private NavigationView navigationView;
     private InputMethodManager inputMethodManager;
     private boolean doubleBackToExitPressedOnce = false;
 
@@ -78,6 +68,11 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         GlobalBus.getBus().register(this);
+
+        File root = new File(getExternalFilesDir(getResources().getString(R.string.download_folder_path)).toString());
+        if (!root.exists()) {
+            root.mkdir();
+        }
 
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -192,10 +187,20 @@ public class MainActivity extends AppCompatActivity
 
         });
 
-        Dexter.withContext(MainActivity.this)
-                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(MainActivity.this)
-                .check();
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (!isMyServiceRunning()) {
+                switchMaterial.setChecked(true);
+            }
+        }
+
+        //set viewpager adapter
+        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle(), pageTitle.length);
+        viewPager2.setAdapter(pagerAdapter);
+
+        new TabLayoutMediator(tabLayout, viewPager2, true, (tab, position) -> {
+            // position of the current tab and that tab
+            tab.setText(pageTitle[position]);
+        }).attach();
 
     }
 
@@ -296,17 +301,12 @@ public class MainActivity extends AppCompatActivity
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        switch (id) {
-
-            case R.id.setting:
-                unSelect(1);
-                startActivity(new Intent(MainActivity.this, Setting.class));
-                return true;
-
-            default:
-                return true;
+        if (id == R.id.setting) {
+            unSelect(1);
+            startActivity(new Intent(MainActivity.this, Setting.class));
+            return true;
         }
+        return true;
     }
 
     private void unSelect(int position) {
@@ -316,55 +316,6 @@ public class MainActivity extends AppCompatActivity
 
     private void select(int position) {
         navigationView.getMenu().getItem(position).setChecked(true);
-    }
-
-    @Override
-    public void onPermissionGranted(PermissionGrantedResponse response) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            if (!isMyServiceRunning()) {
-                switchMaterial.setChecked(true);
-            }
-        }
-
-        File root = new File(Environment.getExternalStorageDirectory() + getResources().getString(R.string.download_folder_path));
-        if (!root.exists()) {
-            root.mkdir();
-        }
-
-        //set viewpager adapter
-        pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), getLifecycle(), pageTitle.length);
-        viewPager2.setAdapter(pagerAdapter);
-
-        new TabLayoutMediator(tabLayout, viewPager2, true, (tab, position) -> {
-            // position of the current tab and that tab
-            tab.setText(pageTitle[position]);
-        }).attach();
-    }
-
-    @Override
-    public void onPermissionDenied(PermissionDeniedResponse response) {
-        // check for permanent denial of permission
-        if (response.isPermanentlyDenied()) {
-            // navigate user to app settings
-        }
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(MainActivity.this, R.style.DialogTitleTextStyle);
-        builder.setMessage(getResources().getString(R.string.pleas_allow_permission));
-        builder.setIcon(R.mipmap.ic_launcher_round);
-        builder.setCancelable(false);
-        builder.setNegativeButton(getResources().getString(R.string.exit), (dialog, which) -> finishAffinity());
-        builder.setPositiveButton(getResources().getString(R.string.allow_permission),
-                (arg0, arg1) -> Dexter.withContext(MainActivity.this)
-                        .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        .withListener(MainActivity.this)
-                        .check());
-
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    @Override
-    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-        token.continuePermissionRequest();
     }
 
     @Override

@@ -10,14 +10,15 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.util.Log;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.FileProvider;
 
+import com.app.instancedownload.BuildConfig;
 import com.app.instancedownload.R;
 import com.app.instancedownload.interfaces.OnClick;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -33,8 +34,8 @@ public class Method {
     private final String myPreference = "Instagram";
     public String themSetting = "them";
     public String isDelete = "isDelete";
-    public String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
     public static boolean isDownload = true;
+    public String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
     public Method(Activity activity) {
         this.activity = activity;
@@ -58,6 +59,15 @@ public class Method {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
 
+    public String getThem() {
+        return pref.getString(themSetting, "system");
+    }
+
+    //get download folder path
+    public File getDownload() {
+        return new File(activity.getExternalFilesDir(activity.getResources().getString(R.string.download_folder_path)).toString());
+    }
+
     //network check
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -66,11 +76,9 @@ public class Method {
     }
 
     public void changeStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.TRANSPARENT);
     }
 
     //Instagram application installation or not check
@@ -96,6 +104,7 @@ public class Method {
 
     public void share(String link, String type) {
 
+        Uri contentUri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".fileprovider", new File(link));
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         if (type.equals("image")) {
@@ -104,7 +113,7 @@ public class Method {
             shareIntent.setType("video/*");
         }
         shareIntent.putExtra(Intent.EXTRA_TEXT, activity.getResources().getString(R.string.play_more_app));
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(link)));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
         activity.startActivity(Intent.createChooser(shareIntent, "Share to"));
 
     }

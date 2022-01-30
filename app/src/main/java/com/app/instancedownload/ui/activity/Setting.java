@@ -1,4 +1,4 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -33,9 +33,7 @@ public class Setting extends AppCompatActivity {
 
     private Method method;
     private Animation myAnim;
-    private SwitchMaterial switchMaterial;
-    private String them, themMode;
-    private MaterialToolbar toolbar;
+    private String themMode;
     private MaterialTextView textViewCash;
 
     @SuppressLint({"SetTextI18n", "NonConstantResourceId"})
@@ -48,7 +46,7 @@ public class Setting extends AppCompatActivity {
 
         myAnim = AnimationUtils.loadAnimation(Setting.this, R.anim.bounce);
 
-        toolbar = findViewById(R.id.toolbar_setting);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar_setting);
         toolbar.setTitle(getResources().getString(R.string.setting));
         setSupportActionBar(toolbar);
 
@@ -63,14 +61,13 @@ public class Setting extends AppCompatActivity {
         ConstraintLayout conRateApp = findViewById(R.id.con_rateApp_setting);
         ConstraintLayout conMoreApp = findViewById(R.id.con_moreApp_setting);
         ImageView imageViewClear = findViewById(R.id.imageView_clear_setting);
-        switchMaterial = findViewById(R.id.switch_delete_setting);
+        SwitchMaterial switchMaterial = findViewById(R.id.switch_delete_setting);
         MaterialTextView textViewThemName = findViewById(R.id.textView_themName_setting);
         textViewCash = findViewById(R.id.textView_cash_setting);
 
         switchMaterial.setChecked(method.pref.getBoolean(method.isDelete, true));
 
-        them = method.pref.getString(method.themSetting, "system");
-        switch (them) {
+        switch (method.getThem()) {
             case "system":
                 textViewThemName.setText(getResources().getString(R.string.system_default));
                 break;
@@ -111,7 +108,7 @@ public class Setting extends AppCompatActivity {
             MaterialTextView textViewOk = dialog.findViewById(R.id.textView_ok_them);
             MaterialTextView textViewCancel = dialog.findViewById(R.id.textView_cancel_them);
 
-            switch (them) {
+            switch (method.getThem()) {
                 case "system":
                     radioGroup.check(radioGroup.getChildAt(0).getId());
                     break;

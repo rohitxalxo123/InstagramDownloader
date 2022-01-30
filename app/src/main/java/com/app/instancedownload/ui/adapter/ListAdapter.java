@@ -1,4 +1,4 @@
-package com.app.instancedownload.adapter;
+package com.app.instancedownload.ui.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

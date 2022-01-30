@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".activity.Show">
+    tools:context=".ui.activity.Show">
 
     <com.app.instancedownload.util.StatusBarView
         android:id="@+id/statusBarView_show"

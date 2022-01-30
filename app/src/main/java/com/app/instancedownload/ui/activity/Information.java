@@ -1,4 +1,4 @@
-package com.app.instancedownload.activity;
+package com.app.instancedownload.ui.activity;
 
 import android.os.Build;
 import android.os.Bundle;

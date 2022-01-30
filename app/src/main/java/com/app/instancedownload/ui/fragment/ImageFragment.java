@@ -1,10 +1,9 @@
-package com.app.instancedownload.fragment;
+package com.app.instancedownload.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.instancedownload.R;
-import com.app.instancedownload.activity.Show;
-import com.app.instancedownload.adapter.ListAdapter;
+import com.app.instancedownload.ui.activity.Show;
+import com.app.instancedownload.ui.adapter.ListAdapter;
 import com.app.instancedownload.interfaces.OnClick;
 import com.app.instancedownload.util.Constant;
 import com.app.instancedownload.util.Events;
@@ -35,9 +34,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class VideoFragment extends Fragment {
+public class ImageFragment extends Fragment {
 
-    private File file;
+    private Method method;
     private OnClick onClick;
     private ProgressBar progressBar;
     private ListAdapter listAdapter;
@@ -50,9 +49,6 @@ public class VideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment, container, false);
 
         GlobalBus.getBus().register(this);
-
-        String root = Environment.getExternalStorageDirectory() + getResources().getString(R.string.download_folder_path);
-        file = new File(root);
 
         int resId = R.anim.layout_animation_from_bottom;
         animation = AnimationUtils.loadLayoutAnimation(getActivity(), resId);
@@ -71,9 +67,9 @@ public class VideoFragment extends Fragment {
         onClick = (OnClick) (position, type, data) -> startActivity(new Intent(getActivity(), Show.class)
                 .putExtra("position", position)
                 .putExtra("type", type));
-        Method method = new Method(getActivity(), onClick);
+        method = new Method(getActivity(), onClick);
 
-        new Video().execute();
+        new Image().execute();
 
         return view;
 
@@ -84,12 +80,12 @@ public class VideoFragment extends Fragment {
         if (listAdapter != null) {
             listAdapter.notifyDataSetChanged();
         } else {
-            setVideoData();
+            setImageData();
         }
     }
 
     @SuppressLint("StaticFieldLeak")
-    public class Video extends AsyncTask<String, String, String> {
+    public class Image extends AsyncTask<String, String, String> {
 
         Queue<File> files;
 
@@ -97,8 +93,8 @@ public class VideoFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
-            files = new LinkedList<>(Arrays.asList(file.listFiles()));
-            Constant.videoArray.clear();
+            Constant.imageArray.clear();
+            files = new LinkedList<>(Arrays.asList(method.getDownload().listFiles()));
         }
 
         @Override
@@ -109,38 +105,35 @@ public class VideoFragment extends Fragment {
                     File file = files.remove();
                     if (file.isDirectory()) {
                         files.addAll(Arrays.asList(file.listFiles()));
-                    } else if (file.getName().endsWith(".mp4")) {
-                        Constant.videoArray.add(file);
+                    } else if (file.getName().endsWith(".jpg") || file.getName().endsWith(".gif")) {
+                        Constant.imageArray.add(file);
                     }
                 }
             } catch (Exception e) {
                 Log.d("error", e.toString());
             }
 
-            Collections.sort(Constant.videoArray);
-            Collections.reverse(Constant.videoArray);
+            Collections.sort(Constant.imageArray);
+            Collections.reverse(Constant.imageArray);
 
             return null;
         }
 
         @Override
         protected void onPostExecute(String s) {
-
-            if (Constant.videoArray.size() == 0) {
+            if (Constant.imageArray.size() == 0) {
                 textViewNoData.setVisibility(View.VISIBLE);
             } else {
-                setVideoData();
+                setImageData();
             }
-
             progressBar.setVisibility(View.GONE);
-
             super.onPostExecute(s);
         }
     }
 
-    private void setVideoData() {
+    private void setImageData() {
         textViewNoData.setVisibility(View.GONE);
-        listAdapter = new ListAdapter(getActivity(), Constant.videoArray, "video", onClick);
+        listAdapter = new ListAdapter(getActivity(), Constant.imageArray, "image", onClick);
         recyclerView.setAdapter(listAdapter);
         recyclerView.setLayoutAnimation(animation);
     }

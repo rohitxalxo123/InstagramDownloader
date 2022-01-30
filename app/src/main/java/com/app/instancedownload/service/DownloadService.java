@@ -165,12 +165,7 @@ public class DownloadService extends Service {
 
     public void init(final String downloadUrl) {
 
-        final String iconsStoragePath = Environment.getExternalStorageDirectory() + getResources().getString(R.string.download_folder_path);
-
-        File file = new File(iconsStoragePath);
-        if (!file.exists()) {
-            file.mkdir();
-        }
+        final String iconsStoragePath = getExternalFilesDir(getResources().getString(R.string.download_folder_path)).toString();
 
         //Using Date class
         Date date = new Date();
@@ -190,7 +185,6 @@ public class DownloadService extends Service {
         } else {
             string = "Image-" + s + ".mp4";
         }
-
         Log.d("file_name", string);
 
         new Thread(new Runnable() {

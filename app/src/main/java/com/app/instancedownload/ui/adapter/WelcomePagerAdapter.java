@@ -1,4 +1,4 @@
-package com.app.instancedownload.adapter;
+package com.app.instancedownload.ui.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class WelcomePagerAdapter extends PagerAdapter {
 
     private Activity activity;
-    private int[] layouts;
+    private final int[] layouts;
 
     public WelcomePagerAdapter(Activity activity, int[] layouts) {
         this.activity = activity;
