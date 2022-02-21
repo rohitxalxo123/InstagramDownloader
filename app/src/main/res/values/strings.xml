@@ -33,14 +33,13 @@
     <string name="please_enter_url">please enter copy url</string>
 
     <string name="exit">Exit</string>
+    <string name="share_to">Share to</string>
     <string name="wrong">Some thing went to wrong</string>
     <string name="allow_permission">Allow permission</string>
-    <string name="pleas_allow_permission">Pleas allow permission</string>
     <string name="app_not_install">Instagram application not install</string>
     <string name="internet_connection">Internet connection not available</string>
     <string name="Please_click_BACK_again_to_exit">Please click BACK again to exit</string>
     <string name="Let_me_recommend_you_this_application">Let me recommend you this application</string>
-    <string name="cannot_use_save_share">Cannot Use Save And Share Please Allow Permission Storage</string>
     <string name="folder">Instance Download folder show your download image and video show in this app</string>
     <string name="download_msg">First of all one download complete then after you can another download</string>
 

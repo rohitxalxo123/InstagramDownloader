@@ -180,7 +180,7 @@ public class DownloadService extends Service {
 
         final String string;
 
-        if (downloadUrl.contains(".jpg")) {
+        if (downloadUrl.contains(".jpg")|| downloadUrl.contains(".webp")) {
             string = "Image-" + s + ".jpg";
         } else {
             string = "Image-" + s + ".mp4";
@@ -217,7 +217,7 @@ public class DownloadService extends Service {
                         assert response.body() != null;
                         ResponseBody responseBody = ProgressHelper.withProgress(response.body(), new ProgressUIListener() {
 
-                            //if you don't need this method, don't override this methd. It isn't an abstract method, just an empty method.
+                            //if you don't need this method, don't override this method. It isn't an abstract method, just an empty method.
                             @Override
                             public void onUIProgressStart(long totalBytes) {
                                 super.onUIProgressStart(totalBytes);
@@ -238,7 +238,7 @@ public class DownloadService extends Service {
                                 mHandler.sendMessage(msg);
                             }
 
-                            //if you don't need this method, don't override this methd. It isn't an abstract method, just an empty method.
+                            //if you don't need this method, don't override this method. It isn't an abstract method, just an empty method.
                             @Override
                             public void onUIProgressFinish() {
                                 super.onUIProgressFinish();
@@ -247,7 +247,7 @@ public class DownloadService extends Service {
                                 msg.what = 2;
                                 msg.obj = 0 + "";
                                 mHandler.sendMessage(msg);
-                                if (downloadUrl.contains(".jpg")) {
+                                if (string.contains(".jpg")) {
                                     if (Constant.imageArray != null) {
                                         Constant.imageArray.add(0, new File(iconsStoragePath + "/" + string));
                                     }

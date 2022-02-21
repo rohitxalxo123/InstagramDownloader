@@ -1,6 +1,7 @@
 package com.app.instancedownload.util;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -112,9 +113,11 @@ public class Method {
         } else {
             shareIntent.setType("video/*");
         }
-        shareIntent.putExtra(Intent.EXTRA_TEXT, activity.getResources().getString(R.string.play_more_app));
         shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
-        activity.startActivity(Intent.createChooser(shareIntent, "Share to"));
+        shareIntent.setClipData(ClipData.newRawUri("", contentUri));
+        shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, activity.getResources().getString(R.string.play_more_app));
+        activity.startActivity(Intent.createChooser(shareIntent, activity.getResources().getString(R.string.share_to)));
 
     }
 
