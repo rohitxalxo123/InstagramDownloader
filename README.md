@@ -1,6 +1,10 @@
 # InstagramDownloader
 Instagram image, video, ig and reels downloader
 
+<!-- BEGIN LATEST DOWNLOAD BUTTON -->
+[![Download](https://github.com/KishanViramgama/InstagramDownloader/blob/master/Demo.apk "Download zip")](https://github.com/KishanViramgama/InstagramDownloader/blob/master/Demo.apk)
+<!-- END LATEST DOWNLOAD BUTTON -->
+
 <h3>Change Log 1.1</h3>
 <ul>
   <li>Storage policy</li>
