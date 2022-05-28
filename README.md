@@ -1,9 +1,7 @@
 # InstagramDownloader
 Instagram image, video, ig and reels downloader
 
-<!-- BEGIN LATEST DOWNLOAD BUTTON -->
-[Download Apk](https://github.com/KishanViramgama/InstagramDownloader/raw/master/Demo.apk)
-<!-- END LATEST DOWNLOAD BUTTON -->
+<a href='https://play.google.com/store/apps/details?id=com.krishan.instancedownload&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200" height="80"/></a>
 
 <h3>Change Log 1.1</h3>
 <ul>
