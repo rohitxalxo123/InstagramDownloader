@@ -39,7 +39,13 @@ public class FindData {
             if (isNetworkAvailable()) {
                 if (Method.isDownload) {
                     AsyncHttpClient client = new AsyncHttpClient();
-                    client.get(string + "?__a=1", null, new AsyncHttpResponseHandler() {
+                    client.addHeader("Accept", "application/json");
+                    client.addHeader("Content-Type", "application/json;charset=UTF-8");
+                    client.addHeader("origin", "https://sssinstagram.com");
+                    client.addHeader("user-agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36");
+                    client.addHeader("x-requested-with", "XMLHttpRequest");
+                    client.addHeader("x-xsrf-token", "eyJpdiI6IkRnUDdZa2RYOFk1ZmpzemFwN2lwMXc9PSIsInZhbHVlIjoiZU03dlV5TlVvNWowenNrWXkrZmdZa0tpZy9abGs2aENBZnBIUmhLK1FNRmJBb3gyUUswRkY3cUxoMlBjL3l6YUFlM1ZFN1VNeWg2WDZOTzJlZ0xCVHVBY05sSjYwTy9Ca3piRVpGLzM4SU83bEtIeEl6TGRsVGVncXpuM0todWoiLCJtYWMiOiJjMjQ5NWMwMzZmYWM5ZjE1YzhiMTBjNzdlOTAxMTY4MWEwNzAwMWQ1YzQ4NWRhZWE0MDlmZjAwMDJmOWUyNTU3IiwidGFnIjoiIn0=");
+                    client.get(string + "?__a=1&__d=dis", null, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 

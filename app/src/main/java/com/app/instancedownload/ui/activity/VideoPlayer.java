@@ -9,9 +9,11 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.exoplayer2.ExoPlayer;
+import com.app.instancedownload.R;
+import com.app.instancedownload.util.Method;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.PlaybackException;
+import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
@@ -20,8 +22,6 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.app.instancedownload.R;
-import com.app.instancedownload.util.Method;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -70,7 +70,7 @@ public class VideoPlayer extends AppCompatActivity {
         player.setMediaSource(mediaSource);
         player.prepare();
         player.setPlayWhenReady(true);
-        player.addListener(new ExoPlayer.EventListener() {
+        player.addListener(new Player.Listener() {
             @Override
             public void onIsPlayingChanged(boolean playWhenReady) {
                 if (playWhenReady) {

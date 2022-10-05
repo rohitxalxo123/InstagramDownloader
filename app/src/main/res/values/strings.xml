@@ -4,7 +4,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="adMob_app_id">ca-app-pub-3089551119510710~2433971356</string>
     <string name="play_more_app">https://play.google.com/store/apps/</string>
 
     <string name="download_folder_path">/InstanceDownload/</string>
@@ -30,7 +29,7 @@
 
     <string name="submit">Submit</string>
     <string name="enter_url">Enter copy url</string>
-    <string name="please_enter_url">please enter copy url</string>
+    <string name="please_enter_url">Please enter copy url</string>
 
     <string name="exit">Exit</string>
     <string name="share_to">Share to</string>

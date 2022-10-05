@@ -69,8 +69,8 @@ public class ActiveService extends Service {
 
         try {
             if (intent.getAction() != null && intent.getAction().equals(ACTION_SERVICE_START)) {
-                Intent intent_service_start = new Intent(getApplicationContext(), GetAppService.class);
-                startService(intent_service_start);
+                Intent intentServiceStart = new Intent(getApplicationContext(), GetAppService.class);
+                startService(intentServiceStart);
             }
             if (intent.getAction() != null && intent.getAction().equals(ACTION_SERVICE_STOP)) {
                 stopForeground(false);
