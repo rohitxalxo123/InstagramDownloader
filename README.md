@@ -4,6 +4,14 @@ Instagram image, video, ig and reels downloader
 <a data-permalink-href="https://github.com/KishanViramgama/InstagramDownloader/blob/master/Demo.apk" href="https://github.com/KishanViramgama/InstagramDownloader/blob/master/Demo.apk" id="raw-url" data-view-component="true" class="js-permalink-replaceable-link btn-sm btn BtnGroup-item">    <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200" height="80"/>
 </a>
 
+- 📫 How to reach me <a href='https://www.instagram.com/kishan.viramgama/'>Instagram</a></br>
+
+<h3>Feature update</h3>
+<ul>
+  <li>Supporting private post download</li>
+  <li>Working with jetpack compose</li>
+</ul>
+
 <h3>Change Log 1.1.1</h3>
 <ul>
   <li>Using Target sdk 33</li>
