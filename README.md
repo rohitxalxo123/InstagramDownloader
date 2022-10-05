@@ -1,7 +1,8 @@
 # InstagramDownloader
 Instagram image, video, ig and reels downloader
 
-<a href='https://github.com/KishanViramgama/InstagramDownloader/blob/master/Demo.apk'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200" height="80"/></a>
+<a data-permalink-href="/KishanViramgama/InstagramDownloader/raw/c898da0e24e6b0995c303d434f7b937c6cc2aa27/Demo.apk" href="/KishanViramgama/InstagramDownloader/raw/master/Demo.apk" id="raw-url" data-view-component="true" class="js-permalink-replaceable-link btn-sm btn BtnGroup-item">    <img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width="200" height="80"/>
+</a>
 
 <h3>Change Log 1.1.1</h3>
 <ul>
