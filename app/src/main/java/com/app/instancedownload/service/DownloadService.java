@@ -115,7 +115,13 @@ public class DownloadService extends Service {
 
         Intent intentClose = new Intent(this, DownloadService.class);
         intentClose.setAction(ACTION_STOP);
-        PendingIntent closeIntent = PendingIntent.getService(this, 0, intentClose, 0);
+        int intentFlagType;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            intentFlagType = PendingIntent.FLAG_IMMUTABLE;  // or only use FLAG_MUTABLE >> if it needs to be used with inline replies or bubbles.
+        } else {
+            intentFlagType = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+        PendingIntent closeIntent = PendingIntent.getService(this, 0, intentClose, intentFlagType);
         rv.setOnClickPendingIntent(R.id.nf_close, closeIntent);
 
         builder.setCustomContentView(rv);
@@ -180,7 +186,7 @@ public class DownloadService extends Service {
 
         final String string;
 
-        if (downloadUrl.contains(".jpg")|| downloadUrl.contains(".webp")) {
+        if (downloadUrl.contains(".jpg") || downloadUrl.contains(".webp")) {
             string = "Image-" + s + ".jpg";
         } else {
             string = "Image-" + s + ".mp4";
